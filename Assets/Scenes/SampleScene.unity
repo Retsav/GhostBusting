@@ -873,6 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickableObjectSO: {fileID: 0}
+  pickableObjectToChangeColor: {fileID: 0}
   rollDelay: 5
   clearTables:
   - {fileID: 1227077657}

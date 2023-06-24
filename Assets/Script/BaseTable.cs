@@ -9,6 +9,18 @@ public class BaseTable : MonoBehaviour, IHuntedObjectsParent
 
     [SerializeField] private Transform tableTopPoint;
     private PickableObject pickableObject;
+
+
+    public virtual void Interact(PlayerController player)
+    {
+        Debug.LogError("BaseTable.Interact()");
+    }
+
+    public virtual void InteractAlternate(PlayerController player)
+    {
+        // Debug.LogError("BaseCounter.InteractAlternate()");
+    }
+
     public void ClearPickableObject()
     {
         pickableObject = null;

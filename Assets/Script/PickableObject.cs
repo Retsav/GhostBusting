@@ -41,13 +41,12 @@ public class PickableObject : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /*
-    public static PickableObject SpawnPickableObject(PickableObjectSO pickableObjectSO, IHuntedObjectsParent huntedObjectParent)
+
+    public static PickableObject SpawnPickableObject(PickableObjectSO pickableObjectSO, IHuntedObjectsParent pickableObjectParent)
     {
-        Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
-        KitchenObject kitchenObject = kitchenObjectTransform.GetComponent<KitchenObject>();
-        kitchenObject.SetKitchenObjectParent(kitchenObjectParent);
-        return kitchenObject;
+        Transform pickableObjectTransform = Instantiate(pickableObjectSO.prefab);
+        PickableObject pickableObject = pickableObjectTransform.GetComponent<PickableObject>();
+        pickableObject.SetPickableObjectParent(pickableObjectParent);
+        return pickableObject;
     }
-    */
 }

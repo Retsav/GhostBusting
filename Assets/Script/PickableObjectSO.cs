@@ -7,4 +7,5 @@ public class PickableObjectSO : ScriptableObject
 {
     public Transform prefab;
     public string objectName;
+    public QuickTimeEventsActionListSO qteList;
 }

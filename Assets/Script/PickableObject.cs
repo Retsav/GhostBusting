@@ -106,4 +106,9 @@ public class PickableObject : MonoBehaviour
         pickableObject.SetPickableObjectParent(pickableObjectParent);
         return pickableObject;
     }
+
+    public QuickTimeEventsActionListSO GetPickableObjectQTEList()
+    {
+        return pickableObjectSO.qteList;
+    }
 }

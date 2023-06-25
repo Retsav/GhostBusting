@@ -29,14 +29,14 @@ public class CinemachineController : MonoBehaviour
     private void Instance_OnFinishedExorcising(object sender, System.EventArgs e)
     {
         LookAt(lookAtDeafultLookingPointGameObject);
-        ChangeFOV(changeFOV, defaultFOV, 1f);
+        ChangeFOV(changeFOV, defaultFOV, 1.5f);
     }
 
     private void Instance_OnStartedExorcising(object sender, System.EventArgs e)
     {
         ShakeCamera(2f, 1f);
         LookAt(lookAtOccultTableGameObject);
-        ChangeFOV(defaultFOV, changeFOV, 1f);
+        ChangeFOV(defaultFOV, changeFOV, 1);
     }
 
     private void ChangeFOV(float defaultFOV, float changeFOV, float time)

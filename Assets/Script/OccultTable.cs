@@ -44,7 +44,7 @@ public class OccultTable : BaseTable
     {
         if(state == State.Exorcising)
         {
-            KeyCode buttonPressed = GameInput.GetKeyPressed();
+            KeyCode buttonPressed = gameInput.GetKeyPressed();
             if (Input.GetKeyDown(qteSOList[keyClickedIndex].keyToPress))
                 {
                 keyClickedIndex++;

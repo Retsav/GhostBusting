@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc6dd76da8a8b24d85dba67d3a6f977, type: 3}
   m_Name: UpDown
   m_EditorClassIdentifier: 
-  quickTimeEventActionList: []
+  quickTimeEventActionList:
+  - {fileID: 11400000, guid: a99012956ae791e4cb4c898fd819ab65, type: 2}
+  - {fileID: 11400000, guid: be6a11c0a41579341bcf7ccca426757b, type: 2}

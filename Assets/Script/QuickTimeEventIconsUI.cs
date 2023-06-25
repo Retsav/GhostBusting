@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QuickTimeEventIconsUI : MonoBehaviour
 {
@@ -11,7 +12,29 @@ public class QuickTimeEventIconsUI : MonoBehaviour
     private void Start()
     {
         OccultTable.Instance.OnSelectedTableGiven += OccultTable_OnSelectedTableGiven;
+        OccultTable.Instance.OnCorrectButtonPressed += Instance_OnCorrectButtonPressed;
         OccultTable.Instance.OnObjectDropped += Instance_OnObjectDropped;
+        OccultTable.Instance.OnObjectPicked += Instance_OnObjectPicked;
+    }
+
+    private void Instance_OnCorrectButtonPressed(object sender, OccultTable.OnCorrectButtonPressedEventArgs e)
+    {
+        foreach (Transform child in transform)
+        {
+            if(child.GetChild(1).GetComponent<Image>().sprite == e.qteSO.keySprite)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
+
+    private void Instance_OnObjectPicked(object sender, System.EventArgs e)
+    {
+        foreach (Transform child in transform)
+        {
+            if (child == iconTemplate) continue;
+            Destroy(child.gameObject);
+        }
     }
 
     private void Awake()

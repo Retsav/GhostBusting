@@ -16,5 +16,5 @@ MonoBehaviour:
   exorcisedPrefab: {fileID: 2000362001822220577, guid: 881347c33cc0c504e83f33e88df1d7c0,
     type: 3}
   objectName: Vase
-  qteList: {fileID: 0}
+  qteList: {fileID: 11400000, guid: 21ca23f42c5b6ee46aa810364de65f10, type: 2}
   qteTimerMax: 5

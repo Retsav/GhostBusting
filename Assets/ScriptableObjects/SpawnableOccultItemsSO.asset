@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SpawnableOccultItemsSO
   m_EditorClassIdentifier: 
   pickableObjectsSOList:
-  - {fileID: 11400000, guid: 27d0c21cd1ab64f4b95bd26f80100a07, type: 2}
+  - {fileID: 11400000, guid: 6331ff76c3f0c8a489c66d9431a86fb4, type: 2}

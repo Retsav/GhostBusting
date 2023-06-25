@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec594a69d1f16b640889a04323fc49ea, type: 3}
   m_Name: H
   m_EditorClassIdentifier: 
-  keyToPress: 0
-  keySprite: {fileID: 0}
+  keyToPress: 104
+  keySprite: {fileID: 21300000, guid: 293fad4b3fef29349accf044db81eaaa, type: 3}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Up
   m_EditorClassIdentifier: 
   keyToPress: 273
-  keySprite: {fileID: 21300000, guid: 7f854f490da24e54f9e8383e446b5d81, type: 3}
+  keySprite: {fileID: 21300000, guid: 1942f9fccd1ee7b40ba422b324e498f6, type: 3}

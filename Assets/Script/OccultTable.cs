@@ -12,6 +12,7 @@ public class OccultTable : BaseTable, IHasProgress
     public event EventHandler<OnStateChangedEventArgs> OnStateChanged;
     public event EventHandler OnObjectDropped;
     public event EventHandler OnObjectPicked;
+    public event EventHandler OnStartedExorcising;
     public event EventHandler OnFinishedExorcising;
     public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
 
@@ -178,6 +179,7 @@ public class OccultTable : BaseTable, IHasProgress
             if(GetPickableObject().IsHunted())
             {
                 StartCoroutine(exorcisingDelay());
+                OnStartedExorcising?.Invoke(this, EventArgs.Empty);
             }
         }
     }

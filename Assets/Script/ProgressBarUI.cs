@@ -23,6 +23,12 @@ public class ProgressBarUI : MonoBehaviour
         Hide();
         OccultTable.Instance.OnFinishedExorcising += Instance_OnFinishedExorcising;
         OccultTable.Instance.OnStateChanged += Instance_OnStateChanged;
+        OccultTable.Instance.OnSuccessfulFinishedExorcising += Instance_OnSuccessfulFinishedExorcising;
+    }
+
+    private void Instance_OnSuccessfulFinishedExorcising(object sender, System.EventArgs e)
+    {
+        Hide();
     }
 
     private void Instance_OnStateChanged(object sender, OccultTable.OnStateChangedEventArgs e)

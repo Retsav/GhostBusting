@@ -19,16 +19,13 @@ public class QuickTimeEventIconsUI : MonoBehaviour
         OccultTable.Instance.OnFinishedExorcising += Instance_OnFinishedExorcising;
     }
 
+
     private void Instance_OnFinishedExorcising(object sender, System.EventArgs e)
     {
         foreach (Transform child in transform)
         {
             if (child == iconTemplate) continue;
-            child.GetChild(2).GetComponent<Image>().DOFade(1f, 0.2f).OnComplete(() =>
-            {
-                if(child is null) return;
-                Destroy(child.gameObject);
-            });
+            Destroy(child.gameObject);
         }
     }
 
@@ -36,7 +33,7 @@ public class QuickTimeEventIconsUI : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            if(child.GetChild(1).GetComponent<Image>().sprite == e.qteSO.keySprite)
+            if (child.GetChild(1).GetComponent<Image>().sprite == e.qteSO.keySprite)
             {
                 child.GetChild(2).GetComponent<Image>().DOFade(1f, 0.2f).OnComplete(() =>
                 {

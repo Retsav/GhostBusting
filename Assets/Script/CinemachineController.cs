@@ -24,6 +24,13 @@ public class CinemachineController : MonoBehaviour
     {
         OccultTable.Instance.OnStartedExorcising += Instance_OnStartedExorcising;
         OccultTable.Instance.OnFinishedExorcising += Instance_OnFinishedExorcising;
+        OccultTable.Instance.OnSuccessfulFinishedExorcising += Instance_OnSuccessfulFinishedExorcising;
+    }
+
+    private void Instance_OnSuccessfulFinishedExorcising(object sender, System.EventArgs e)
+    {
+        LookAt(lookAtDeafultLookingPointGameObject);
+        ChangeFOV(changeFOV, defaultFOV, 1.5f);
     }
 
     private void Instance_OnFinishedExorcising(object sender, System.EventArgs e)

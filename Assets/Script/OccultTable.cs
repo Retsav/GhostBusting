@@ -14,6 +14,7 @@ public class OccultTable : BaseTable, IHasProgress
     public event EventHandler OnObjectPicked;
     public event EventHandler OnStartedExorcising;
     public event EventHandler OnFinishedExorcising;
+    public event EventHandler OnSuccessfulFinishedExorcising;
     public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
 
     private int keyClickedIndex;
@@ -86,12 +87,12 @@ public class OccultTable : BaseTable, IHasProgress
                         {
                             state = state,
                         });
-                        OnFinishedExorcising?.Invoke(this, EventArgs.Empty);
                         GetPickableObject().ChangePickableObjectState(PickableObject.State.Exorcised);
-                        keyClickedIndex = 0;
                         t = 0f;
                         qteSOList.Clear();
                         pickableObjectSO = null;
+                        keyClickedIndex = 0;
+                        OnSuccessfulFinishedExorcising?.Invoke(this, EventArgs.Empty);
                     }
                     else
                     {
@@ -107,6 +108,7 @@ public class OccultTable : BaseTable, IHasProgress
                         t = 0f;
                         pickableObjectSO = null;
                         qteSOList.Clear();
+                        keyClickedIndex = 0;
                         OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
                         {
                             state = state,
@@ -119,6 +121,7 @@ public class OccultTable : BaseTable, IHasProgress
             {
                 t = 0f;
                 Debug.Log("Ran out of time!");
+                keyClickedIndex = 0;
                 state = State.Idle;
                 pickableObjectSO = null;
                 qteSOList.Clear();

@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: PlaceHolderOccultItem
   m_EditorClassIdentifier: 
   prefab: {fileID: 2000362001822220577, guid: d72264da7c9295042bb47c14960c0015, type: 3}
+  exorcisedPrefab: {fileID: 2000362001822220577, guid: 881347c33cc0c504e83f33e88df1d7c0,
+    type: 3}
   objectName: PlaceHolderOccultItem
   qteList: {fileID: 11400000, guid: 2298f5a0364b4514da9f01fa39f0ecae, type: 2}
+  qteTimerMax: 5

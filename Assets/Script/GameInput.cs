@@ -36,4 +36,16 @@ public class GameInput : MonoBehaviour
         inputVector = inputVector.normalized;
         return inputVector;
     }
+
+    public KeyCode GetKeyPressed()
+    {
+        foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+        {
+            if (Input.GetKeyDown(keyCode))
+            {
+                return keyCode;
+            }
+        }
+        return KeyCode.None;
+    }
 }

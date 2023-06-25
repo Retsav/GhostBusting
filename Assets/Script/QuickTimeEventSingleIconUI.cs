@@ -10,6 +10,5 @@ public class QuickTimeEventSingleIconUI : MonoBehaviour
     public void SetQTEObjectSO(QTE_SO qteObjectSO)
     {
         image.sprite = qteObjectSO.keySprite;
-        Debug.Log("Ustawiam sprite na " + qteObjectSO.keySprite);
     }
 }

@@ -15,6 +15,16 @@ public class QuickTimeEventIconsUI : MonoBehaviour
         OccultTable.Instance.OnCorrectButtonPressed += Instance_OnCorrectButtonPressed;
         OccultTable.Instance.OnObjectDropped += Instance_OnObjectDropped;
         OccultTable.Instance.OnObjectPicked += Instance_OnObjectPicked;
+        OccultTable.Instance.OnFinishedExorcising += Instance_OnFinishedExorcising;
+    }
+
+    private void Instance_OnFinishedExorcising(object sender, System.EventArgs e)
+    {
+        foreach (Transform child in transform)
+        {
+            if (child == iconTemplate) continue;
+            Destroy(child.gameObject);
+        }
     }
 
     private void Instance_OnCorrectButtonPressed(object sender, OccultTable.OnCorrectButtonPressedEventArgs e)

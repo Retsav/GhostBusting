@@ -11,6 +11,9 @@ public class OccultTable : BaseTable
     public event EventHandler OnObjectDropped;
     public event EventHandler OnObjectPicked;
     public event EventHandler OnFinishedExorcising;
+
+    private int keyClickedIndex;
+    [SerializeField] private GameInput gameInput;
     public class OnPickableTableEventArgs : EventArgs
     {
         public PickableObjectSO pickableObjectSO;
@@ -41,25 +44,33 @@ public class OccultTable : BaseTable
     {
         if(state == State.Exorcising)
         {
-
-            foreach(QTE_SO qteSO in GetPickableObject().GetPickableObjectQTEList().quickTimeEventActionList)
-            {
-                if(Input.GetKeyDown(qteSO.keyToPress) && qteSOList.Count > 0)
+            KeyCode buttonPressed = GameInput.GetKeyPressed();
+            if (Input.GetKeyDown(qteSOList[keyClickedIndex].keyToPress))
                 {
-                    qteSOList.Remove(qteSO);
-                    OnCorrectButtonPressed?.Invoke(this, new OnCorrectButtonPressedEventArgs
-                    {
-                        qteSO = qteSO
-                    });
-                    
-                } else if (qteSOList.Count == 0)
+                keyClickedIndex++;
+                if (keyClickedIndex == qteSOList.Count)
                 {
                     state = State.Idle;
                     OnFinishedExorcising?.Invoke(this, EventArgs.Empty);
+                    keyClickedIndex = 0;
+                    qteSOList.Clear();
+                } else
+                {
+                    OnCorrectButtonPressed?.Invoke(this, new OnCorrectButtonPressedEventArgs
+                    {
+                        qteSO = qteSOList[keyClickedIndex]
+                    });
+                }                    
+            } else if (Input.anyKeyDown)
+            {
+                if(qteSOList[keyClickedIndex].keyToPress != buttonPressed)
+                {
+                    Debug.Log("Wrong button!");
                 }
             }
         }
     }
+
 
     public override void Interact(PlayerController player)
     {
@@ -85,6 +96,7 @@ public class OccultTable : BaseTable
             GetPickableObject().SetPickableObjectParent(player);
             OnObjectPicked?.Invoke(this, EventArgs.Empty);
             qteSOList.Clear();
+            state = State.Idle;
         }
     }
 
@@ -94,8 +106,14 @@ public class OccultTable : BaseTable
         { 
             if(GetPickableObject().IsHunted())
             {
-                state = State.Exorcising;
+                StartCoroutine(exorcisingDelay());
             }
         }
+    }
+
+    IEnumerator exorcisingDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        state = State.Exorcising;
     }
 }

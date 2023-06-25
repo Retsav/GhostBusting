@@ -53,7 +53,6 @@ public class PickableObject : MonoBehaviour
                 pickableObjectToChangeColor.GetComponent<MeshRenderer>().material.color = Color.green;
                 break;
         }
-        Debug.Log(state);
     }
 
 
@@ -63,7 +62,6 @@ public class PickableObject : MonoBehaviour
         {
             yield return new WaitForSeconds(rollDelay);
             var roll = Mathf.Floor(UnityEngine.Random.Range(0, MAX_ROLL));
-            Debug.Log(roll);
             if (roll >= 10)
             {
                 state = State.Hunted;

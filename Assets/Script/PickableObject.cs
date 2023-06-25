@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PickableObject : MonoBehaviour
@@ -10,6 +11,7 @@ public class PickableObject : MonoBehaviour
     [SerializeField] private float rollDelay = 5f;
     private const int MAX_ROLL = 11;
 
+    
 
     public enum State
     {
@@ -32,7 +34,13 @@ public class PickableObject : MonoBehaviour
 
     private void Start()
     {
+        OccultTable.Instance.OnFinishedExorcising += Instance_OnFinishedExorcising;
         StartCoroutine(TryTurningHunted());
+    }
+
+    private void Instance_OnFinishedExorcising(object sender, System.EventArgs e)
+    {
+        state = State.Idle;
     }
 
     private void Update()
@@ -105,5 +113,10 @@ public class PickableObject : MonoBehaviour
         PickableObject pickableObject = pickableObjectTransform.GetComponent<PickableObject>();
         pickableObject.SetPickableObjectParent(pickableObjectParent);
         return pickableObject;
+    }
+
+    public QuickTimeEventsActionListSO GetPickableObjectQTEList()
+    {
+        return pickableObjectSO.qteList;
     }
 }

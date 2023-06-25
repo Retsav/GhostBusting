@@ -11,6 +11,7 @@ public class OccultTable : BaseTable
     public event EventHandler OnObjectDropped;
     public event EventHandler OnObjectPicked;
     public event EventHandler OnFinishedExorcising;
+    public event EventHandler OnFailedExorcising;
 
     private int keyClickedIndex;
     [SerializeField] private GameInput gameInput;
@@ -66,6 +67,8 @@ public class OccultTable : BaseTable
                 if(qteSOList[keyClickedIndex].keyToPress != buttonPressed)
                 {
                     Debug.Log("Wrong button!");
+                    state = State.Idle;
+                    OnFailedExorcising?.Invoke(this, EventArgs.Empty);
                 }
             }
         }

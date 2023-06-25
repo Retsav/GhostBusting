@@ -17,6 +17,7 @@ public class PickableObject : MonoBehaviour
     {
         Idle,
         Hunted,
+        FailedExorcise,
     }
 
     private IHuntedObjectsParent pickableObjectParent;
@@ -35,7 +36,13 @@ public class PickableObject : MonoBehaviour
     private void Start()
     {
         OccultTable.Instance.OnFinishedExorcising += Instance_OnFinishedExorcising;
+        OccultTable.Instance.OnFailedExorcising += Instance_OnFailedExorcising;
         StartCoroutine(TryTurningHunted());
+    }
+
+    private void Instance_OnFailedExorcising(object sender, System.EventArgs e)
+    {
+        state = State.FailedExorcise;
     }
 
     private void Instance_OnFinishedExorcising(object sender, System.EventArgs e)
@@ -51,6 +58,9 @@ public class PickableObject : MonoBehaviour
                 break;
             case State.Hunted:
                 pickableObjectToChangeColor.GetComponent<MeshRenderer>().material.color = Color.green;
+                break;
+            case State.FailedExorcise:
+                DestroySelf();
                 break;
         }
     }

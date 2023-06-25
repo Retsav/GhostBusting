@@ -74,6 +74,10 @@ public class OccultTable : BaseTable, IHasProgress
             {
                 if (Input.GetKeyDown(qteSOList[keyClickedIndex].keyToPress))
                 {
+                    OnCorrectButtonPressed?.Invoke(this, new OnCorrectButtonPressedEventArgs
+                    {
+                        qteSO = qteSOList[keyClickedIndex]
+                    });
                     keyClickedIndex++;
                     if (keyClickedIndex == qteSOList.Count)
                     {
@@ -91,10 +95,7 @@ public class OccultTable : BaseTable, IHasProgress
                     }
                     else
                     {
-                        OnCorrectButtonPressed?.Invoke(this, new OnCorrectButtonPressedEventArgs
-                        {
-                            qteSO = qteSOList[keyClickedIndex]
-                        });
+
                     }
                 }
                 else if (Input.anyKeyDown)

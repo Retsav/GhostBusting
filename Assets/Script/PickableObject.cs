@@ -55,7 +55,6 @@ public class PickableObject : MonoBehaviour
             case State.Idle:
                 break;
             case State.Hunted:
-                pickableObjectToChangeColor.GetComponent<MeshRenderer>().material.color = Color.green;
                 break;
             case State.Exorcised:
                 Debug.Log("Exorcised!");

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class QuickTimeEventIconsUI : MonoBehaviour
 {
@@ -23,7 +24,11 @@ public class QuickTimeEventIconsUI : MonoBehaviour
         foreach (Transform child in transform)
         {
             if (child == iconTemplate) continue;
-            Destroy(child.gameObject);
+            child.GetChild(2).GetComponent<Image>().DOFade(1f, 0.2f).OnComplete(() =>
+            {
+                if(child is null) return;
+                Destroy(child.gameObject);
+            });
         }
     }
 
@@ -33,7 +38,10 @@ public class QuickTimeEventIconsUI : MonoBehaviour
         {
             if(child.GetChild(1).GetComponent<Image>().sprite == e.qteSO.keySprite)
             {
-                Destroy(child.gameObject);
+                child.GetChild(2).GetComponent<Image>().DOFade(1f, 0.2f).OnComplete(() =>
+                {
+                   Destroy(child.gameObject);
+                });
             }
         }
     }

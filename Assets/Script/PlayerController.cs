@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour, IHuntedObjectsParent
 
     private PickableObject pickableObject;
     [SerializeField] private Transform pickableObjectHoldPoint;
-
+    [SerializeField] private OccultTable occultTable;
     private bool isWalking;
     private Vector3 lastInteractDir;
     private BaseTable lastSelectedTable;
@@ -45,8 +45,12 @@ public class PlayerController : MonoBehaviour, IHuntedObjectsParent
 
     private void Update()
     {
-        HandleMovement();
-        HandleInteractions();
+        bool allowedMovement = occultTable.GetOccultTableState() != OccultTable.State.Exorcising;
+        if(allowedMovement)
+        {
+            HandleMovement();
+            HandleInteractions();
+        }
     }
 
     private void HandleInteractions()

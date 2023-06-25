@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,18 +6,26 @@ using UnityEngine;
 
 public class PickableObject : MonoBehaviour
 {
+    public static PickableObject Instance { get; private set; }
     [SerializeField] private PickableObjectSO pickableObjectSO;
     [SerializeField] private GameObject pickableObjectToChangeColor;
+
+    public event EventHandler<OnExorcisedObjectEventArgs> OnExorcisedObject;
 
     [SerializeField] private float rollDelay = 5f;
     private const int MAX_ROLL = 11;
 
+    public class OnExorcisedObjectEventArgs : EventArgs
+    {
+        public PickableObjectSO pickableObjectSO;
+    }
     
 
     public enum State
     {
         Idle,
         Hunted,
+        Exorcised,
         FailedExorcise,
     }
 
@@ -26,6 +35,7 @@ public class PickableObject : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         state = State.Idle;
     }
     public PickableObjectSO GetPickableObjectSO()
@@ -35,19 +45,7 @@ public class PickableObject : MonoBehaviour
 
     private void Start()
     {
-        OccultTable.Instance.OnFinishedExorcising += Instance_OnFinishedExorcising;
-        OccultTable.Instance.OnFailedExorcising += Instance_OnFailedExorcising;
         StartCoroutine(TryTurningHunted());
-    }
-
-    private void Instance_OnFailedExorcising(object sender, System.EventArgs e)
-    {
-        state = State.FailedExorcise;
-    }
-
-    private void Instance_OnFinishedExorcising(object sender, System.EventArgs e)
-    {
-        state = State.Idle;
     }
 
     private void Update()
@@ -58,6 +56,10 @@ public class PickableObject : MonoBehaviour
                 break;
             case State.Hunted:
                 pickableObjectToChangeColor.GetComponent<MeshRenderer>().material.color = Color.green;
+                break;
+            case State.Exorcised:
+                Debug.Log("Exorcised!");
+                DestroySelf();
                 break;
             case State.FailedExorcise:
                 DestroySelf();
@@ -77,6 +79,16 @@ public class PickableObject : MonoBehaviour
                 state = State.Hunted;
             }   
         }
+    }
+
+    public void ChangePickableObjectState(State state)
+    {
+        this.state = state;
+    }
+
+    public State GetPickableObjectState()
+    {
+        return state;
     }
 
     public void SetPickableObjectParent(IHuntedObjectsParent pickableObjectParent)

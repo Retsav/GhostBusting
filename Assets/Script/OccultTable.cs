@@ -1,28 +1,42 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
-public class OccultTable : BaseTable
+public class OccultTable : BaseTable, IHasProgress
 {
     public static OccultTable Instance { get; private set; }
     public event EventHandler<OnPickableTableEventArgs> OnSelectedTableGiven;
     public event EventHandler<OnCorrectButtonPressedEventArgs> OnCorrectButtonPressed;
+    public event EventHandler<OnStateChangedEventArgs> OnStateChanged;
     public event EventHandler OnObjectDropped;
     public event EventHandler OnObjectPicked;
     public event EventHandler OnFinishedExorcising;
-    public event EventHandler OnFailedExorcising;
+    public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
 
     private int keyClickedIndex;
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private float t;
+    private PickableObjectSO pickableObjectSO;
     public class OnPickableTableEventArgs : EventArgs
     {
         public PickableObjectSO pickableObjectSO;
     }
 
+    public class OnFailedExorciseEventArgs : EventArgs
+    {
+        public PickableObject pickableObject;
+    }
+
     public class OnCorrectButtonPressedEventArgs : EventArgs
     {
         public QTE_SO qteSO;
+    }
+
+    public class OnStateChangedEventArgs : EventArgs
+    {
+        public State state;
     }
 
     [SerializeField] private List<QTE_SO> qteSOList;
@@ -39,37 +53,79 @@ public class OccultTable : BaseTable
     {
         Instance = this;
         state = State.Idle;
+        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+        {
+            state = state,
+        });
     }
 
     private void Update()
     {
         if(state == State.Exorcising)
         {
-            KeyCode buttonPressed = gameInput.GetKeyPressed();
-            if (Input.GetKeyDown(qteSOList[keyClickedIndex].keyToPress))
-                {
-                keyClickedIndex++;
-                if (keyClickedIndex == qteSOList.Count)
-                {
-                    state = State.Idle;
-                    OnFinishedExorcising?.Invoke(this, EventArgs.Empty);
-                    keyClickedIndex = 0;
-                    qteSOList.Clear();
-                } else
-                {
-                    OnCorrectButtonPressed?.Invoke(this, new OnCorrectButtonPressedEventArgs
-                    {
-                        qteSO = qteSOList[keyClickedIndex]
-                    });
-                }                    
-            } else if (Input.anyKeyDown)
+            t -= Time.deltaTime;
+            OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
             {
-                if(qteSOList[keyClickedIndex].keyToPress != buttonPressed)
+                progressNormalized = t / pickableObjectSO.qteTimerMax
+            });
+            KeyCode buttonPressed = gameInput.GetKeyPressed();
+            if(t > 0)
+            {
+                if (Input.GetKeyDown(qteSOList[keyClickedIndex].keyToPress))
                 {
-                    Debug.Log("Wrong button!");
-                    state = State.Idle;
-                    OnFailedExorcising?.Invoke(this, EventArgs.Empty);
+                    keyClickedIndex++;
+                    if (keyClickedIndex == qteSOList.Count)
+                    {
+                        state = State.Idle;
+                        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+                        {
+                            state = state,
+                        });
+                        OnFinishedExorcising?.Invoke(this, EventArgs.Empty);
+                        GetPickableObject().ChangePickableObjectState(PickableObject.State.Exorcised);
+                        keyClickedIndex = 0;
+                        t = 0f;
+                        qteSOList.Clear();
+                        pickableObjectSO = null;
+                    }
+                    else
+                    {
+                        OnCorrectButtonPressed?.Invoke(this, new OnCorrectButtonPressedEventArgs
+                        {
+                            qteSO = qteSOList[keyClickedIndex]
+                        });
+                    }
                 }
+                else if (Input.anyKeyDown)
+                {
+                    if (qteSOList[keyClickedIndex].keyToPress != buttonPressed)
+                    {
+                        Debug.Log("Wrong button!");
+                        state = State.Idle;
+                        t = 0f;
+                        pickableObjectSO = null;
+                        qteSOList.Clear();
+                        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+                        {
+                            state = state,
+                        });
+                        GetPickableObject().ChangePickableObjectState(PickableObject.State.FailedExorcise);
+                        OnFinishedExorcising?.Invoke(this, EventArgs.Empty);
+                    }
+                }
+            } else
+            {
+                t = 0f;
+                Debug.Log("Ran out of time!");
+                state = State.Idle;
+                pickableObjectSO = null;
+                qteSOList.Clear();
+                OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+                {
+                    state = state,
+                });
+                GetPickableObject().ChangePickableObjectState(PickableObject.State.FailedExorcise);
+                OnFinishedExorcising?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -88,8 +144,9 @@ public class OccultTable : BaseTable
                     {
                         pickableObjectSO = GetPickableObject().GetPickableObjectSO()
                     });
-                    OnObjectDropped?.Invoke(this, EventArgs.Empty);
-                    for(int i = 0; i < GetPickableObject().GetPickableObjectQTEList().quickTimeEventActionList.Count; i++)
+                    pickableObjectSO = GetPickableObject().GetPickableObjectSO();
+                    t = pickableObjectSO.qteTimerMax;
+                    for (int i = 0; i < GetPickableObject().GetPickableObjectQTEList().quickTimeEventActionList.Count; i++)
                     {
                         qteSOList.Add(GetPickableObject().GetPickableObjectQTEList().quickTimeEventActionList[i]);
                     }
@@ -97,10 +154,21 @@ public class OccultTable : BaseTable
             } 
         } else {
             GetPickableObject().SetPickableObjectParent(player);
+            pickableObjectSO = null;
             OnObjectPicked?.Invoke(this, EventArgs.Empty);
+            t = 0f;
             qteSOList.Clear();
             state = State.Idle;
+            OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+            {
+                state = state,
+            });
         }
+    }
+
+    public State GetOccultTableState()
+    {
+        return state;
     }
 
     public override void InteractAlternate(PlayerController player)
@@ -118,5 +186,10 @@ public class OccultTable : BaseTable
     {
         yield return new WaitForSeconds(1f);
         state = State.Exorcising;
+        OnObjectDropped?.Invoke(this, EventArgs.Empty);
+        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs
+        {
+            state = state,
+        });
     }
 }

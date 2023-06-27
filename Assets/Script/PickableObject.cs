@@ -11,6 +11,7 @@ public class PickableObject : MonoBehaviour
     [SerializeField] private GameObject pickableObjectToChangeColor;
 
     public event EventHandler<OnExorcisedObjectEventArgs> OnExorcisedObject;
+    public event EventHandler OnObjectDestroy;
 
     [SerializeField] private float rollDelay = 5f;
     private const int MAX_ROLL = 11;
@@ -58,9 +59,11 @@ public class PickableObject : MonoBehaviour
                 break;
             case State.Exorcised:
                 Debug.Log("Exorcised!");
+                OnObjectDestroy?.Invoke(this, EventArgs.Empty);
                 DestroySelf();
                 break;
             case State.FailedExorcise:
+                OnObjectDestroy?.Invoke(this, EventArgs.Empty);
                 DestroySelf();
                 break;
         }

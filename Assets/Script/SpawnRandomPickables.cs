@@ -10,6 +10,8 @@ public class SpawnRandomPickables :  PickableObject
     [SerializeField] private ClearTable[] clearTables;
     [SerializeField] private SpawnableOccultItemsSO spawnableOccultItems;
 
+    private const string PICKABLE_TAG = "Pickable";
+
 
     private int spawnCount;
 
@@ -18,11 +20,14 @@ public class SpawnRandomPickables :  PickableObject
 
     private void Update()
     {
+        spawnCount = GameObject.FindGameObjectsWithTag(PICKABLE_TAG).Length;
         if(spawnCount < spawnCountMax)
         {
             GeneratePickableObjects();
         }
     }
+
+
 
     private void GeneratePickableObjects()
     {
@@ -31,8 +36,6 @@ public class SpawnRandomPickables :  PickableObject
         {
             PickableObjectSO randomPickableObjectSO = spawnableOccultItems.pickableObjectsSOList[UnityEngine.Random.Range(0, spawnableOccultItems.pickableObjectsSOList.Count)];
             SpawnPickableObject(randomPickableObjectSO, randomTable);
-            //Debug.Log("Spawned " + randomPickableObjectSO.objectName + " on " + randomTable.gameObject.name);
-            spawnCount++;
         }
     }
 }

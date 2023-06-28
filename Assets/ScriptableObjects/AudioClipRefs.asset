@@ -12,9 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 996478dc98de1e24cb07190d456169ae, type: 3}
   m_Name: AudioClipRefs
   m_EditorClassIdentifier: 
-  qteSuccess: []
-  qteFail: []
-  footsteps: []
-  objectDrop: []
-  objectPickup: []
-  evilLaugh: []
+  qteSuccess:
+  - {fileID: 8300000, guid: fedb45189f5581042a7d05bf463ff20c, type: 3}
+  - {fileID: 8300000, guid: ed27a066db541d349bdd12a550d3ed41, type: 3}
+  - {fileID: 8300000, guid: eb6744d31741d474daa6dc8f22026bfb, type: 3}
+  - {fileID: 8300000, guid: dd52755362c58f4479bb5871fc0e4332, type: 3}
+  qteFail:
+  - {fileID: 8300000, guid: 74d43df2a9e8aa44d879fb6726ce887a, type: 3}
+  footsteps:
+  - {fileID: 8300000, guid: 55ae9b51da36a284386320bab681453c, type: 3}
+  - {fileID: 8300000, guid: 218964365e5da5c46ac5d41a9d9b4f5a, type: 3}
+  - {fileID: 8300000, guid: 9ed219197ffe70e4e90e336b55d44310, type: 3}
+  - {fileID: 8300000, guid: 62c0ce6ef6f508e41ae56a760df36465, type: 3}
+  - {fileID: 8300000, guid: b294273655330d8448383c724746dc78, type: 3}
+  objectDrop:
+  - {fileID: 8300000, guid: 6d52d726943c23b42bbbd6c6bb4dbae5, type: 3}
+  - {fileID: 8300000, guid: ab2e16103fb65ce45a80e111d78c3791, type: 3}
+  - {fileID: 8300000, guid: 2f5aa09473ff1af4b8c10c1383f2c027, type: 3}
+  objectPickup:
+  - {fileID: 8300000, guid: 9ee08981fb6be8044b082cb27b547b56, type: 3}
+  - {fileID: 8300000, guid: 8d5a3deda53acea499daa4867e0e19e5, type: 3}
+  - {fileID: 8300000, guid: a3cfef13485bd2f4894b8978d6635f1a, type: 3}
+  evilLaugh:
+  - {fileID: 8300000, guid: ab0ad847b4692c14dbf18da96f2cf464, type: 3}
+  - {fileID: 8300000, guid: 59f5fc16707ab2641b141cb82febf92f, type: 3}
+  particleExplosion:
+  - {fileID: 8300000, guid: f37e86a4ede155c4c9bcdbc250f53dd2, type: 3}
+  whispersAmbient:
+  - {fileID: 8300000, guid: c5ba63a300f8549498c9a4cda5490ee4, type: 3}
+  buttonClicks: []

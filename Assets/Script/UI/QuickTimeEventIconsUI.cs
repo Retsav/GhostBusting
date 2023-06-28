@@ -39,6 +39,7 @@ public class QuickTimeEventIconsUI : MonoBehaviour
                 {
                    Destroy(child.gameObject);
                 });
+                break;
             }
         }
     }

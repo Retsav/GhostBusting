@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc6dd76da8a8b24d85dba67d3a6f977, type: 3}
+  m_Name: 5.5BYKU
+  m_EditorClassIdentifier: 
+  quickTimeEventActionList:
+  - {fileID: 11400000, guid: 3c90b86f2ef36534899e3ddd1c06e028, type: 2}
+  - {fileID: 11400000, guid: d25e91cd39db1d64cb1a6f24930c01f4, type: 2}
+  - {fileID: 11400000, guid: 3c90b86f2ef36534899e3ddd1c06e028, type: 2}
+  - {fileID: 11400000, guid: e324f21e8851ee543a5ed95fc786a5fe, type: 2}
+  - {fileID: 11400000, guid: cf11ea1d0e2653f4a877b42b6d805b85, type: 2}
+  - {fileID: 11400000, guid: e2eba2220bd90d44381411feb44748db, type: 2}
+  - {fileID: 11400000, guid: 118ace9b1ead84741ae6716d1b68c4c8, type: 2}

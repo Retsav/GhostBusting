@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 294834d1d00259f4fa321587028d0e84, type: 3}
   m_Name: Clock
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  exorcisedPrefab: {fileID: 0}
-  objectName: 
-  qteList: {fileID: 0}
-  qteTimerMax: 0
+  prefab: {fileID: 5863545329042713069, guid: a98ca15def7ef1e4d8ba6a85e13ac4e7, type: 3}
+  exorcisedPrefab: {fileID: 5863545329042713069, guid: a98ca15def7ef1e4d8ba6a85e13ac4e7,
+    type: 3}
+  objectName: Clock
+  qteList: {fileID: 11400000, guid: 52d4ab512b69f5f44929ec64637cd137, type: 2}
+  qteTimerMax: 6

@@ -8,10 +8,6 @@ public class DissolveObject : MonoBehaviour
     private Transform dissolvedObject;
     private float dissolveTimer;
     private float dissolveTimerMax = 1f;
-    private void Start()
-    {
-        PickableObject.Instance.OnExorcisedObject += Instance_OnExorcisedObject;
-    }
 
     private void Instance_OnExorcisedObject(object sender, PickableObject.OnExorcisedObjectEventArgs e)
     {

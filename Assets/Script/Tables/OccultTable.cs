@@ -19,6 +19,7 @@ public class OccultTable : BaseTable, IHasProgress
 
     private int keyClickedIndex;
     [SerializeField] private GameInput gameInput;
+    [SerializeField] private DifficultyManager difficultyManager;
     [SerializeField] private float t;
     private PickableObjectSO pickableObjectSO;
     public class OnPickableTableEventArgs : EventArgs
@@ -71,7 +72,6 @@ public class OccultTable : BaseTable, IHasProgress
                 progressNormalized = t / pickableObjectSO.qteTimerMax
             });
             KeyCode buttonPressed = gameInput.GetKeyPressed();
-            Debug.Log(buttonPressed);
             if(t > 0)
             {
                 if (Input.GetKeyDown(qteSOList[keyClickedIndex].keyToPress))
@@ -104,7 +104,6 @@ public class OccultTable : BaseTable, IHasProgress
                 {
                     if (qteSOList[keyClickedIndex].keyToPress != buttonPressed)
                     {
-                        Debug.Log("Wrong button!");
                         state = State.Idle;
                         t = 0f;
                         pickableObjectSO = null;
@@ -121,7 +120,6 @@ public class OccultTable : BaseTable, IHasProgress
             } else
             {
                 t = 0f;
-                Debug.Log("Ran out of time!");
                 keyClickedIndex = 0;
                 state = State.Idle;
                 pickableObjectSO = null;
@@ -151,7 +149,7 @@ public class OccultTable : BaseTable, IHasProgress
                         pickableObjectSO = GetPickableObject().GetPickableObjectSO()
                     });
                     pickableObjectSO = GetPickableObject().GetPickableObjectSO();
-                    t = pickableObjectSO.qteTimerMax;
+                    t = pickableObjectSO.qteTimerMax * difficultyManager.GetSpeedCurve();
                     for (int i = 0; i < GetPickableObject().GetPickableObjectQTEList().quickTimeEventActionList.Count; i++)
                     {
                         qteSOList.Add(GetPickableObject().GetPickableObjectQTEList().quickTimeEventActionList[i]);

@@ -10,7 +10,6 @@ public class PickableObject : MonoBehaviour
     [SerializeField] private PickableObjectSO pickableObjectSO;
     [SerializeField] private GameObject pickableObjectToChangeColor;
 
-    public event EventHandler<OnExorcisedObjectEventArgs> OnExorcisedObject;
     public event EventHandler OnObjectHunted;
 
     [SerializeField] private float rollDelay = 5f;
@@ -58,10 +57,11 @@ public class PickableObject : MonoBehaviour
             case State.Hunted:
                 break;
             case State.Exorcised:
-                Debug.Log("Exorcised!");
+                ScoreController.Instance.ScoreIncrease();
                 DestroySelf();
                 break;
             case State.FailedExorcise:
+                ScoreController.Instance.ScoreDecrease();
                 DestroySelf();
                 break;
         }

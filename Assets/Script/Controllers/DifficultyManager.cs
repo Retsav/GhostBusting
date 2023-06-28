@@ -10,7 +10,6 @@ public class DifficultyManager : MonoBehaviour
     public float GetSpeedCurve()
     {
         var point = ScoreController.Instance.GetScore() / difficultyPointMax;
-        Debug.Log("Mod. trudnosci + " + point);
         var speedIntersection = difficultyCurve.Evaluate(point);
         return speedIntersection;
     }

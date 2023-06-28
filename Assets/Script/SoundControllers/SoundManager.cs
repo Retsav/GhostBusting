@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
 
     private void OccultTable_OnCorrectButtonPressed(object sender, OccultTable.OnCorrectButtonPressedEventArgs e)
     {
-        //PlaySound(audioClipRefsSO.)
+        PlaySound(audioClipRefsSO.buttonClicks, occultTable.transform.position);
     }
 
     private void OccultTable_OnStartedExorcising(object sender, System.EventArgs e)

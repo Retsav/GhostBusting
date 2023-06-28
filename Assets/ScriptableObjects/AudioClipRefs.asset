@@ -40,4 +40,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f37e86a4ede155c4c9bcdbc250f53dd2, type: 3}
   whispersAmbient:
   - {fileID: 8300000, guid: c5ba63a300f8549498c9a4cda5490ee4, type: 3}
-  buttonClicks: []
+  buttonClicks:
+  - {fileID: 8300000, guid: e26f9e8e2fa160b4eaf5f8bf117ba30c, type: 3}
+  - {fileID: 8300000, guid: c84f1532f03318a469f8130a8af8812b, type: 3}
+  - {fileID: 8300000, guid: 97fa7b0cfbf124b4195cfe3c0b16a0f5, type: 3}
+  - {fileID: 8300000, guid: bbb41aa75436f2446bf6431305a2602d, type: 3}
+  - {fileID: 8300000, guid: 99f06c49c656d7a40a7e3c26e1e5b6fd, type: 3}

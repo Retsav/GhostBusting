@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class PlayerSounds : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private PlayerController player;
+    private float footstepTimer;
+    private float footstepTimerMax = .1f;
+    private void Awake()
     {
-        
+        player = GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        footstepTimer -= Time.deltaTime;
+        if (footstepTimer < 0f)
+        {
+            footstepTimer = footstepTimerMax;
+            if (player.IsWalking())
+            {
+                float volume = 1f;
+                SoundManager.Instance.PlayFootstepsSound(player.transform.position, volume);
+            }
+        }
     }
 }

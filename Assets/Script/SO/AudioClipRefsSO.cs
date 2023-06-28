@@ -12,5 +12,7 @@ public class AudioClipRefsSO : ScriptableObject
     public AudioClip[] objectDrop;
     public AudioClip[] objectPickup;
     public AudioClip[] evilLaugh;
-
+    public AudioClip[] particleExplosion;
+    public AudioClip[] whispersAmbient;
+    public AudioClip[] buttonClicks;
 }

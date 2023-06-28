@@ -18,6 +18,7 @@ public class SmokeEmitter : MonoBehaviour
     {
         occultTable.OnSuccessfulFinishedExorcising += OccultTable_OnSuccessfulFinishedExorcising;
         occultTable.OnFinishedExorcising += OccultTable_OnFinishedExorcising;
+
     }
 
     private void OccultTable_OnFinishedExorcising(object sender, System.EventArgs e)

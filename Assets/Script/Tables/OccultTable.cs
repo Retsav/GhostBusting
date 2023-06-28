@@ -71,6 +71,7 @@ public class OccultTable : BaseTable, IHasProgress
                 progressNormalized = t / pickableObjectSO.qteTimerMax
             });
             KeyCode buttonPressed = gameInput.GetKeyPressed();
+            Debug.Log(buttonPressed);
             if(t > 0)
             {
                 if (Input.GetKeyDown(qteSOList[keyClickedIndex].keyToPress))
